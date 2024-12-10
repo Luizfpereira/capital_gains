@@ -7,7 +7,7 @@ const (
 	PRICE_THRESHOLD = 20000
 )
 
-func CalculateTaxAndLoss(salesPrice, averagePrice, oldLoss float32) (tax float32, loss float32) {
+func CalculateTaxAndLoss(salesPrice, averagePrice, oldLoss float64) (tax float64, loss float64) {
 	if salesPrice < averagePrice {
 		loss = oldLoss + averagePrice - salesPrice
 	} else {

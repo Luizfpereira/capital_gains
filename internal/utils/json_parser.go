@@ -14,14 +14,20 @@ func NewJSONParser() *JSONParser {
 }
 
 func (p *JSONParser) ParseOperations(input string) ([][]domain.Operation, error) {
+	normalizedInput := strings.ReplaceAll(input, "\n", "")
+	normalizedInput = strings.ReplaceAll(normalizedInput, "\t", "")
+	normalizedInput = strings.ReplaceAll(normalizedInput, " ", "")
+
 	var operations [][]domain.Operation
-	res := strings.Split(input, "][")
+	res := strings.Split(normalizedInput, "][")
 	for i := range res {
 		if len(res) > 1 {
-			if i%2 == 0 {
+			if i == 0 {
 				res[i] += "]"
-			} else {
+			} else if i == len(res)-1 {
 				res[i] = "[" + res[i]
+			} else {
+				res[i] = "[" + res[i] + "]"
 			}
 		}
 		var ops []domain.Operation
