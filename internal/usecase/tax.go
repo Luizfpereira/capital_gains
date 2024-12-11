@@ -16,7 +16,7 @@ func CalculateTaxAndLoss(salesPrice, averagePrice, oldLoss float64) (tax float64
 		if profit > 0 && salesPrice > PRICE_THRESHOLD {
 			tax = profit * TAX_RATE
 		}
-		if rawProfit > loss {
+		if rawProfit > oldLoss {
 			loss = 0.0
 		} else {
 			loss = oldLoss - rawProfit

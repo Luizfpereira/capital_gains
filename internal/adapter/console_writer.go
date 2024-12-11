@@ -6,6 +6,10 @@ import (
 	"fmt"
 )
 
+type Writer interface {
+	WriteTaxes(taxes [][]domain.Tax)
+}
+
 type ConsoleWriter struct{}
 
 func NewConsoleWriter() *ConsoleWriter {

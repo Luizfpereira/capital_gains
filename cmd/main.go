@@ -1,6 +1,7 @@
 package main
 
 import (
+	"capital_gains/cmd/app"
 	"capital_gains/internal/adapter"
 	"capital_gains/internal/usecase"
 	"capital_gains/internal/utils"
@@ -9,20 +10,11 @@ import (
 
 func main() {
 	reader := adapter.NewStdinReader()
-	input, err := reader.ReadInput()
-	if err != nil {
-		log.Fatalf("Failed to read input: %v", err)
-	}
-
-	jsonParser := utils.NewJSONParser()
-	operations, err := jsonParser.ParseOperations(input)
-	if err != nil {
-		log.Fatalf("Failed to parse operations: %v", err)
-	}
-
-	operationProcessor := usecase.NewOperationProcessor()
-	taxes := operationProcessor.ProcessOperations(operations)
-
+	parser := utils.NewJSONParser()
+	processor := usecase.NewOperationProcessor()
 	writer := adapter.NewConsoleWriter()
-	writer.WriteTaxes(taxes)
+
+	if err := app.Run(reader, parser, processor, writer); err != nil {
+		log.Fatalf("Application error: %v", err)
+	}
 }

@@ -6,6 +6,10 @@ import (
 	"strings"
 )
 
+type Reader interface {
+	ReadInput() (string, error)
+}
+
 type StdinReader struct{}
 
 func NewStdinReader() *StdinReader {
